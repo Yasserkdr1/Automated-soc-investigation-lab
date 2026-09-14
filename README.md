@@ -1,5 +1,5 @@
 
-# Automated SOC Detection & Incident Response Lab
+# Automated Soc investigation Lab
 
 > A modular SOC lab that detects endpoint/server activity with Wazuh, performs conditional enrichment and behavioral triage in Shuffle, calculates a separate incident risk score, and opens structured investigations in DFIR-IRIS.
 
