@@ -1,0 +1,8 @@
+<rule id="100401" level="10">
+    <if_sid>91802</if_sid>
+    <field name="win.eventdata.scriptBlockText" type="pcre2">(?i)DownloadFile\s*\(</field>
+    <description>PowerShell remote file download detected</description>
+    <mitre>
+      <id>T1105</id>
+    </mitre>
+  </rule>

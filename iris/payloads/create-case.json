@@ -1,0 +1,6 @@
+{
+  "case_customer": "$final_decision.message.iris.customer_id",
+  "case_description": "Risk Score: $final_decision.message.final_risk_score/100\nRisk Level: $final_decision.message.final_risk_level\nVerdict: $final_decision.message.final_verdict\nAction: $final_decision.message.final_action\n\nWazuh Rule: $final_decision.message.alert.rule_id - $final_decision.message.alert.rule_description\nEndpoint: $final_decision.message.alert.agent_name\nEndpoint IP: $final_decision.message.alert.agent_ip\n\nLLM Summary: $final_decision.message.behavioral_analysis.summary\nAttack Chain: $final_decision.message.behavioral_analysis.attack_chain",
+  "case_name": "$final_decision.message.iris.title",
+  "case_soc_id": "$final_decision.message.alert.alert_id"
+}

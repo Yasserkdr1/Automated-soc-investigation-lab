@@ -1,0 +1,90 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.09.12",
+  "_id": "7jlRlqAByBuQQiz8p-H4",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "10.10.10.36",
+      "name": "WIN10-LAB",
+      "id": "002"
+    },
+    "manager": {
+      "name": "siem-1"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "messageNumber": "1",
+          "messageTotal": "1",
+          "scriptBlockText": "(New-Object System.Net.WebClient).DownloadFile(   \\\"https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt\\\",   \\\"$env:TEMP\\\\Atomic-license.txt\\\" )",
+          "scriptBlockId": "081270d8-e165-492f-b2ec-c2d8b43fd1f9"
+        },
+        "system": {
+          "eventID": "4104",
+          "keywords": "0x0",
+          "providerGuid": "{a0c1853b-5c40-4b15-8766-3cf1c58f985a}",
+          "level": "5",
+          "channel": "Microsoft-Windows-PowerShell/Operational",
+          "opcode": "15",
+          "message": "\"Création du texte Scriptblock (1 sur 1) : \r\n(New-Object System.Net.WebClient).DownloadFile(\n  \"https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt\",\n  \"$env:TEMP\\Atomic-license.txt\"\n)\r\n\r\nID Scriptblock : 081270d8-e165-492f-b2ec-c2d8b43fd1f9\r\nChemin d'accès : \"",
+          "version": "1",
+          "systemTime": "2026-09-12T15:51:58.0851992Z",
+          "eventRecordID": "2515",
+          "threadID": "14976",
+          "computer": "WIN10-LAB",
+          "task": "2",
+          "processID": "25156",
+          "severityValue": "VERBOSE",
+          "providerName": "Microsoft-Windows-PowerShell"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": false,
+      "level": 10,
+      "description": "PowerShell remote file download detected",
+      "groups": [
+        "sysmon",
+        "windows",
+        "local_tuning"
+      ],
+      "mitre": {
+        "technique": [
+          "Ingress Tool Transfer"
+        ],
+        "id": [
+          "T1105"
+        ],
+        "tactic": [
+          "Command and Control"
+        ]
+      },
+      "id": "100401"
+    },
+    "location": "EventChannel",
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "id": "1789228319.3442893",
+    "full_log": "{\"win\":{\"system\":{\"providerName\":\"Microsoft-Windows-PowerShell\",\"providerGuid\":\"{a0c1853b-5c40-4b15-8766-3cf1c58f985a}\",\"eventID\":\"4104\",\"version\":\"1\",\"level\":\"5\",\"task\":\"2\",\"opcode\":\"15\",\"keywords\":\"0x0\",\"systemTime\":\"2026-09-12T15:51:58.0851992Z\",\"eventRecordID\":\"2515\",\"processID\":\"25156\",\"threadID\":\"14976\",\"channel\":\"Microsoft-Windows-PowerShell/Operational\",\"computer\":\"WIN10-LAB\",\"severityValue\":\"VERBOSE\",\"message\":\"\\\"Création du texte Scriptblock (1 sur 1) : \\r\\n(New-Object System.Net.WebClient).DownloadFile(\\n  \\\"https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt\\\",\\n  \\\"$env:TEMP\\\\Atomic-license.txt\\\"\\n)\\r\\n\\r\\nID Scriptblock : 081270d8-e165-492f-b2ec-c2d8b43fd1f9\\r\\nChemin d'accès : \\\"\"},\"eventdata\":{\"messageNumber\":\"1\",\"messageTotal\":\"1\",\"scriptBlockText\":\"(New-Object System.Net.WebClient).DownloadFile(   \\\\\\\"https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/LICENSE.txt\\\\\\\",   \\\\\\\"$env:TEMP\\\\\\\\Atomic-license.txt\\\\\\\" )\",\"scriptBlockId\":\"081270d8-e165-492f-b2ec-c2d8b43fd1f9\"}}}",
+    "timestamp": "2026-09-12T15:51:59.930+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-09-12T15:51:59.930Z"
+    ]
+  },
+  "highlight": {
+    "rule.id": [
+      "@opensearch-dashboards-highlighted-field@100401@/opensearch-dashboards-highlighted-field@"
+    ]
+  },
+  "sort": [
+    1789228319930
+  ]
+}

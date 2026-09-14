@@ -1,0 +1,73 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.09.13",
+  "_id": "mU5XmqABArIj3FKyXJPi",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "10.10.10.126",
+      "name": "LINUX-WEB-LAB",
+      "id": "001"
+    },
+    "manager": {
+      "name": "siem-1"
+    },
+    "data": {
+      "protocol": "GET",
+      "srcip": "10.10.10.36",
+      "id": "200",
+      "url": "/uploads/webshell.php"
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": true,
+      "level": 12,
+      "description": "Likely web-shell activity: suspicious uploaded artifact accessed and web application account executed a shell.",
+      "groups": [
+        "local",
+        "webshell",
+        "webshell_likely",
+        "webshell_execution"
+      ],
+      "mitre": {
+        "technique": [
+          "Web Shell",
+          "Unix Shell"
+        ],
+        "id": [
+          "T1505.003",
+          "T1059.004"
+        ],
+        "tactic": [
+          "Persistence",
+          "Execution"
+        ]
+      },
+      "id": "100330",
+      "frequency": 2
+    },
+    "location": "/var/log/apache2/access.log",
+    "decoder": {
+      "name": "web-accesslog"
+    },
+    "id": "1789295808.1793092",
+    "full_log": "10.10.10.36 - - [13/Sep/2026:10:36:46 +0000] \"GET /uploads/webshell.php HTTP/1.1\" 200 887 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36\"",
+    "timestamp": "2026-09-13T10:36:48.478+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-09-13T10:36:48.478Z"
+    ]
+  },
+  "highlight": {
+    "rule.id": [
+      "@opensearch-dashboards-highlighted-field@100330@/opensearch-dashboards-highlighted-field@"
+    ]
+  },
+  "sort": [
+    1789295808478
+  ]
+}

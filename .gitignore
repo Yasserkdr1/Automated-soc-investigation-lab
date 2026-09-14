@@ -1,0 +1,13 @@
+
+.env
+.env.*
+!.env.example
+*.log
+*.pyc
+__pycache__/
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+secrets/
+private/
