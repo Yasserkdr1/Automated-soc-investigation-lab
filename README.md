@@ -99,7 +99,7 @@ The workflow has four practical stages: normalize/routing, deterministic enrichm
 
 ### Risk logic
 
-Deterministic evidence and behavioral context are scored independently. The final decision keeps the stronger signal and can apply a small support boost when both sources are materially suspicious. Current bands are `Low <35`, `Medium 35–59`, `High 60–79`, `Critical >=80`. The supplied implementation creates an IRIS case from `>=35`; this threshold is intentionally documented and can be tightened for a different lab policy. See [docs/risk-model.md](docs/risk-model.md).
+Deterministic evidence and behavioral context are scored independently. The final decision keeps the stronger signal and can apply a small support boost when both sources are materially suspicious. Current bands are `Low <35`, `Medium 35–59`, `High 60–79`, `Critical >=80`. this threshold is intentionally documented and can be tightened for a different lab policy. See [docs/risk-model.md](docs/risk-model.md).
 
 ## Repository layout
 
