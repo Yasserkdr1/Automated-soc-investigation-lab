@@ -48,44 +48,69 @@ The PowerShell samples include both a benign text-file download and a Mimikatz a
 ## Shuffle workflow
 
 ```mermaid
+
 flowchart TD
 
     ENDPOINT[Endpoint Machines<br/>Windows 10 / Ubuntu Server]
+    TEL[Collect Telemetry<br/>Sysmon / PowerShell / auditd / journald / Apache]
+    AGENT[Wazuh Agent]
+    WAZUH[Wazuh Manager / SIEM]
 
-    ENDPOINT --> TEL[Sysmon / PowerShell / auditd / journald / Apache Logs]
-    TEL --> AGENT[Wazuh Agent]
-    AGENT --> WAZUH[Wazuh Manager / SIEM]
+    ENDPOINT --> TEL
+    TEL --> AGENT
+    AGENT --> WAZUH
 
     WAZUH -->|Alert JSON| SHUFFLE[Shuffle SOAR]
 
     SHUFFLE --> NORMALIZE[Normalize Alert]
-    NORMALIZE --> ROUTER{Available Observables}
+    NORMALIZE --> EXTRACT[Extract Available IOCs]
 
-    ROUTER -->|SHA-256| VTHASH[VirusTotal Hash Enrichment]
-    ROUTER -->|Domain| VTDOMAIN[VirusTotal Domain Enrichment]
-    ROUTER -->|Public IP| ABUSEIP[AbuseIPDB Enrichment]
+    EXTRACT --> IOC_CHECK{IOC Available?}
 
-    NORMALIZE --> CONTEXT[Retrieve Wazuh Context]
+    IOC_CHECK -->|Yes| IOC_TYPE{IOC Type?}
+    IOC_CHECK -->|No| CONTEXT[Retrieve Wazuh Context]
+
+    IOC_TYPE -->|SHA-256| VTHASH[VirusTotal<br/>Hash Enrichment]
+    IOC_TYPE -->|Domain| VTDOMAIN[VirusTotal<br/>Domain Enrichment]
+    IOC_TYPE -->|Public IP| ABUSEIP[AbuseIPDB<br/>IP Enrichment]
 
     VTHASH --> DETSCORE[Deterministic Risk Scoring]
     VTDOMAIN --> DETSCORE
     ABUSEIP --> DETSCORE
-    NORMALIZE --> DETSCORE
 
-    DETSCORE --> LLMCHECK{Strong Deterministic Evidence?}
+    DETSCORE --> EVIDENCE{Strong Deterministic<br/>Evidence?}
 
-    LLMCHECK -->|Yes| FINAL[Final Decision]
-    LLMCHECK -->|No| LLM[Behavioral Context Analysis]
+    EVIDENCE -->|Yes| FINAL[Final Decision]
+    EVIDENCE -->|No| CONTEXT
 
-    CONTEXT --> LLM
+    CONTEXT --> LLM[LLM-Assisted<br/>Contextual Analysis]
     LLM --> FINAL
 
-    FINAL --> RISK[Final Risk Score & Severity]
+    FINAL --> RISK[Final Risk Score<br/>& Severity]
     RISK --> IRIS[Create DFIR-IRIS Case]
 
     IRIS --> SEVERITY[Set Case Severity]
     IRIS --> IOC[Add Available IOCs]
-    IRIS --> NOTE[Add Analysis Context]
+    IRIS --> NOTE[Add Investigation Context]
+
+
+    %% =========================
+    %% STYLING
+    %% =========================
+
+    classDef process fill:#ffffff,stroke:#7c3aed,stroke-width:1.5px,color:#1f2937;
+    classDef decision fill:#f5f3ff,stroke:#6d28d9,stroke-width:1.8px,color:#2e1065;
+    classDef system fill:#fafafa,stroke:#7c3aed,stroke-width:1.5px,color:#1f2937;
+    classDef output fill:#faf5ff,stroke:#7c3aed,stroke-width:1.5px,color:#2e1065;
+
+    class ENDPOINT,AGENT,WAZUH,SHUFFLE,IRIS system;
+    class TEL,NORMALIZE,EXTRACT,CONTEXT,VTHASH,VTDOMAIN,ABUSEIP,DETSCORE,LLM process;
+    class IOC_CHECK,IOC_TYPE,EVIDENCE decision;
+    class FINAL,RISK,SEVERITY,IOC,NOTE output;
+
+    linkStyle default stroke:#7c3aed,stroke-width:1.4px;
+
+
 ```
 
 
